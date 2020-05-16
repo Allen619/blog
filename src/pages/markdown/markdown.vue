@@ -11,13 +11,17 @@
                   v-model="markDownFrom.articleTitle"
                   :placeholder="$t('markDownPage.articleTitlePlaceholder')"></el-input>
       </el-form-item>
-      <el-form-item prop="describe"
-                    :label="$t('markDownPage.describe')">
-
+      <el-form-item prop="articleDescribe"
+                    :label="$t('markDownPage.articleDescribe')">
+        <el-input type="textarea"
+                  :rows="3"
+                  :placeholder="$t('markDownPage.articleDescribePlaceholder')"
+                  v-model="markDownFrom.articleDescribe">
+        </el-input>
       </el-form-item>
       <el-form-item prop="markdownText"
-                    :label="$t('markDownPage.articleContent')">
-
+                    :label="$t('markDownPage.articleContent')"
+                    ref="markdownText">
         <mavon-editor :toolbars="toolbars"
                       :placeholder="$t('markDownPage.markDownPlaceholder')"
                       v-model="markDownFrom.markdownText" />
@@ -25,7 +29,7 @@
 
     </el-form>
     <el-button type="primary"
-               @click="sendContent('markDownFrom')">输出</el-button>
+               @click="sendContent('markDownFrom')">{{$t('global.save')}}</el-button>
   </div>
 </template>
 
@@ -46,11 +50,15 @@ export default {
         articleTitle: [
           { required: true, message: this.$t('markDownPage.articleTitlePlaceholder'), trigger: 'blur' },
           { min: 1, max: 30, message: this.$t('markDownPage.articleTitleLength'), trigger: 'blur' }
+        ],
+        articleDescribe: [
+          { min: 0, max: 200, message: this.$t('markDownPage.articleDescribeLength'), trigger: 'blur' }
         ]
       },
       markDownFrom: {
         markdownText: '',
-        articleTitle: ''
+        articleTitle: '',
+        articleDescribe: ''
       },
       toolbars: {
         bold: true, // 粗体
@@ -95,6 +103,9 @@ export default {
     })
   },
   methods: {
+    clearMarkdownText () {
+      return true
+    },
     sendContent (formName) {
       console.log(this.markdownText)
       this.$refs[formName].validate((valid) => {
@@ -105,6 +116,20 @@ export default {
           return false
         }
       })
+    }
+  },
+  computed: {
+    markdownText () {
+      return this.markDownFrom.markdownText
+    }
+  },
+  watch: {
+    markdownText (newVal) {
+      if (newVal) {
+        this.$refs.markdownText.clearValidate()
+      } else {
+        return false
+      }
     }
   }
 }

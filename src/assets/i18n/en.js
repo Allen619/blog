@@ -7,10 +7,13 @@ module.exports = {
   markDownPage: {
     articleTitle: 'Article Title: ',
     articleContent: 'Article Content: ',
-    describe: 'Article Describe: ',
+    articleDescribe: 'Article Describe: ',
     articleTitlePlaceholder: 'Please enter the title of the article...',
     articleContentRequired: 'Please enter the content of the article...',
     markDownPlaceholder: 'Start Editing...',
-    articleTitleLength: '1 to 30 characters in length'
+    articleTitleLength: '1 to 30 characters in length',
+    articleDescribePlaceholder: 'Please enter a description of the article...',
+    articleDescribeLength: '0 to 200 characters in length',
+    save: 'save'
   }
 }
