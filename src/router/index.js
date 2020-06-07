@@ -8,17 +8,20 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
-  },
-  {
-    path: '/markdown-edit',
-    name: 'MarkdownEdit',
-    component: () => import('../pages/markdown/markdown.vue')
+    component: Home,
+    redirect: '/',
+    children: [
+      {
+        path: '/markdown-edit',
+        name: 'MarkdownEdit',
+        component: () => import('../pages/markdown/markdown.vue')
+      },
+      {
+        path: '/',
+        name: 'Default',
+        component: () => import('../pages/markdown/markdown-list.vue')
+      }
+    ]
   }
 ]
 

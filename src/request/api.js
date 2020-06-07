@@ -1,4 +1,5 @@
 import { PostData, GetData } from './http'
-console.log(GetData)
 
-export const getData = () => PostData('/markdown')
+export const sendMarkDown = params => PostData('/sendMarkDown', params)
+
+export const getArticleList = (params, isLoading = true) => GetData('/getArticleList', params, isLoading)

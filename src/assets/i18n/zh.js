@@ -5,6 +5,9 @@ module.exports = {
     notExist: '网络请求不存在',
     save: '保存'
   },
+  home: {
+    addArticle: '写文章'
+  },
   markDownPage: {
     articleTitle: '文章标题：',
     articleContent: '文章内容：',
@@ -14,6 +17,8 @@ module.exports = {
     markDownPlaceholder: '开始编辑...',
     articleTitleLength: '长度在 1 到 30 个字符',
     articleDescribePlaceholder: '请输入文章描述...',
-    articleDescribeLength: '长度在 0 到 200 个字符'
+    articleDescribeLength: '长度在 0 到 200 个字符',
+    save: '保存',
+    addSuccess: '恭喜你，添加成功！'
   }
 }

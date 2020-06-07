@@ -1,9 +1,19 @@
 <template>
   <div class="home">
-    <el-button type="primary"
-               @click="goMarkdown">markdown -></el-button>
-    <h3>{{ $t("global.errInfo") }}</h3>
-    <button @click="langToggle">en/中</button>
+    <el-container>
+      <el-header>
+        <button @click="langToggle">en/中</button>
+        <el-button type="text"
+                   @click="goMarkdown"
+                   icon="el-icon-document">{{$t('home.addArticle')}}</el-button>
+      </el-header>
+      <el-container class="container">
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+        <el-aside width="200px">Aside</el-aside>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
@@ -25,3 +35,5 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+</style>

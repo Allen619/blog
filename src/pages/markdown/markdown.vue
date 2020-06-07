@@ -26,7 +26,6 @@
                       :placeholder="$t('markDownPage.markDownPlaceholder')"
                       v-model="markDownFrom.markdownText" />
       </el-form-item>
-
     </el-form>
     <el-button type="primary"
                @click="sendContent('markDownFrom')">{{$t('global.save')}}</el-button>
@@ -38,7 +37,7 @@
   mavonEditor（github地址）：https://github.com/hinesboy/mavonEditor
 **/
 
-import { getData } from '../../request/api'
+import { sendMarkDown } from '../../request/api'
 
 export default {
   data () {
@@ -94,25 +93,38 @@ export default {
         /* 2.2.1 */
         subfield: true, // 单双栏模式
         preview: true // 预览
-      }
+      },
+      goListFn: null
     }
   },
   created () {
-    getData().then(response => {
-      console.log(response)
-    })
   },
   methods: {
     clearMarkdownText () {
       return true
     },
     sendContent (formName) {
-      console.log(this.markdownText)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          sendMarkDown({
+            content: this.markDownFrom.markdownText,
+            title: this.markDownFrom.articleTitle,
+            describe: this.markDownFrom.articleDescribe
+          }).then(res => {
+            if (res.data.code === 0) {
+              this.$message({
+                message: this.$t('markDownPage.addSuccess'),
+                type: 'success'
+              })
+              this.goListFn = setTimeout(() => {
+                this.$router.push({ name: 'Default' })
+                this.$once('hook:beforeDestroy', () => {
+                  clearInterval(this.goListFn)
+                })
+              }, 500)
+            }
+          })
         } else {
-          console.log('error submit!!')
           return false
         }
       })
@@ -131,6 +143,8 @@ export default {
         return false
       }
     }
+  },
+  components: {
   }
 }
 </script>

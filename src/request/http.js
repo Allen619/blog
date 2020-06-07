@@ -13,11 +13,11 @@ const options = {
 
 // 环境的切换
 if (process.env.NODE_ENV === 'development') {
-  axios.defaults.baseURL = 'http://127.0.0.1:3000'
+  axios.defaults.baseURL = 'http://127.0.0.1:3000/blog'
 } else if (process.env.NODE_ENV === 'debug') {
-  axios.defaults.baseURL = 'http://127.0.0.1:3000'
+  axios.defaults.baseURL = 'http://127.0.0.1:3000/blog'
 } else if (process.env.NODE_ENV === 'production') {
-  axios.defaults.baseURL = 'http://127.0.0.1:3000'
+  axios.defaults.baseURL = 'http://127.0.0.1:3000/blog'
 }
 
 /**
@@ -101,17 +101,18 @@ axios.interceptors.response.use(
 
 // const base = 'http://127.0.0.1:3000'
 
-export function PostData (url, data) {
+export function PostData (url, data, isLoading = true) {
   return new Promise((resolve, reject) => {
     // loadingInstance变量
-    const loadingInstance = Loading.service(options)
+    let loadingInstance = null
+    if (isLoading) loadingInstance = Loading.service(options)
     // 获取当前国际化对象
     const i18nMsg = i18n.messages[i18n.locale]
     axios
       .post(url, data)
       .then(response => {
         // 关闭加载对话框
-        loadingInstance.close()
+        loadingInstance && loadingInstance.close()
         if (response.data.code === -1) {
           Message.error(response.data.error_msg) // 发生异常
         }
@@ -119,34 +120,32 @@ export function PostData (url, data) {
       })
       .catch(err => {
         // 关闭加载对话框
-        loadingInstance.close()
+        loadingInstance && loadingInstance.close()
         Message.error(i18nMsg.global.errInfo)
         reject(err)
       })
   })
 }
 
-export function GetData (url, data) {
+export function GetData (url, data, isLoading = true) {
   return new Promise((resolve, reject) => {
     // loadingInstance变量
-    const loadingInstance = Loading.service(options)
+    let loadingInstance = null
+    if (isLoading) loadingInstance = Loading.service(options)
     // 获取当前国际化对象
     const i18nMsg = i18n.messages[i18n.locale]
     axios
       .get(url, {
-        params: {
-          // 请求参数
-          data: data
-        }
+        params: data
       })
       .then(response => {
         // 关闭加载对话框
-        loadingInstance.close()
+        loadingInstance && loadingInstance.close()
         resolve(response)
       })
       .catch(err => {
         // 关闭加载对话框
-        loadingInstance.close()
+        loadingInstance && loadingInstance.close()
         Message.error(i18nMsg.global.errInfo)
         reject(err)
       })

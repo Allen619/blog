@@ -1,0 +1,6 @@
+sendMarkDown 接口待完善 传参个数
+对全局的函数的整合 {
+  全局报错函数
+}
+getArticleList 获取的字段数
+无数据处理

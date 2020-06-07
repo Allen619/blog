@@ -4,6 +4,9 @@ module.exports = {
     loginExpired: 'Login expired, please log in again',
     notExist: 'Network request does not exist'
   },
+  home: {
+    addArticle: 'Writing An Article'
+  },
   markDownPage: {
     articleTitle: 'Article Title: ',
     articleContent: 'Article Content: ',
@@ -14,6 +17,7 @@ module.exports = {
     articleTitleLength: '1 to 30 characters in length',
     articleDescribePlaceholder: 'Please enter a description of the article...',
     articleDescribeLength: '0 to 200 characters in length',
-    save: 'save'
+    save: 'save',
+    addSuccess: 'Congratulations, the addition is successful'
   }
 }

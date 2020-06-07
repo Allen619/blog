@@ -1,11 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-    </div>
-    <router-view />
+    <router-view>
+      <Home></Home>
+    </router-view>
   </div>
 </template>
+
+<script>
+import Home from './views/Home'
+export default {
+  name: 'Home',
+  components: {
+    Home
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
