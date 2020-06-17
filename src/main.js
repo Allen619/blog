@@ -8,10 +8,16 @@ import 'element-ui/lib/theme-chalk/index.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import './assets/css/base.css'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+library.add(faCoffee)
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(mavonEditor)
+
+Vue.component('font-icon', FontAwesomeIcon)
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */

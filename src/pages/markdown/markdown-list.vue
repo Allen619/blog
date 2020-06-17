@@ -2,29 +2,20 @@
   <div>
     <div class="infinite-list-wrapper"
          style="overflow:auto">
-      <ul v-infinite-scroll="loadData"
-          :infinite-scroll-disabled="false">
+      <ul>
         <li class="article-item"
-            v-for="item in articleList"
+            v-for="(item, index) in articleList"
             :key="item.articleId">
-          <div class="article-title">{{item.title}}</div>
-          <p class="article-introduction">{{item.introduction}}</p>
-          <div>
+          <div class="article-title">{{ item.title }}</div>
+          <p class="article-introduction">{{ item.introduction }}</p>
+          <div></div>
+          <div class="article-icon">
 
           </div>
-          <el-divider></el-divider>
+          <el-divider v-if="(articleList.length-1) > index"></el-divider>
         </li>
       </ul>
-      <p v-if="loading">加载中...</p>
-      <p v-if="noMore">没有更多了</p>
     </div>
-    <ul class="infinite-list"
-        v-infinite-scroll="load"
-        style="overflow:auto">
-      <li v-for="i in count"
-          class="infinite-list-item"
-          :key="i">{{ i }}</li>
-    </ul>
   </div>
 </template>
 
@@ -40,23 +31,19 @@ export default {
       queryData: {
         pageSize: 10,
         startArticle: 0
-      },
-      count: 0
+      }
     }
   },
   created () {
     this.getData(this.queryData, true)
   },
   methods: {
-    load () {
-      // this.count += 2
-      console.log(123)
-    },
     getData (data, isLoading) {
       getArticleList(data, isLoading).then(res => {
         const { data } = res
         if (data.code === 0) {
           this.articleList = data.result
+          console.log(this.articleList)
         }
       })
     },
